@@ -33,12 +33,13 @@ Class  App
 //        show($url);
 //        run the class and method
         $this->params = array_values($url);
-       call_user_func([$this->controller, $this->method]);
+       call_user_func([$this->controller, $this->method],$this->params);
     }
 
     private function splitURL()
     {
-        return explode("/", filter_var(trim($_GET['url'], '/')),FILTER_SANITIZE_URL);
+        $url = isset($_GET["url"]) ? $_GET["url"] : "home";
+        return explode("/", filter_var(trim($url, '/')),FILTER_SANITIZE_URL);
 
     }
 
