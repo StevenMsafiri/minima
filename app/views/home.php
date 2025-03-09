@@ -1,3 +1,10 @@
-<?php
+<html lang="">
+<head>
+    <title>
+        <?=$data['page_title']?>
+    </title>
+</head>
+<body>
 
-echo "This is the home page";
+</body>
+</html>
