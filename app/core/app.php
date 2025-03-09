@@ -31,9 +31,9 @@ Class  App
            }
        }
 //        show($url);
-//        run the class and method
         $this->params = array_values($url);
-       call_user_func([$this->controller, $this->method],$this->params);
+       //        run the class and method
+       call_user_func_array([$this->controller, $this->method],$this->params);
     }
 
     private function splitURL()

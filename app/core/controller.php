@@ -1,6 +1,6 @@
 <?php
 
-// Holds the functions common to al controllers
+// Holds the functions common to all  controllers
 class Controller
 {
     protected function view($view)
@@ -15,8 +15,8 @@ class Controller
 
     protected function loadModel($model)
     {
-        if (file_exists("../app/views/" . $model . ".php")) {
-            include "../app/views/" . $model. ".php";
+        if (file_exists("../app/models/" . $model . ".php")) {
+            include "../app/models/" . $model. ".php";
 
             return $model = new $model();
         } else {
