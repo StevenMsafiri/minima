@@ -33,6 +33,10 @@
                     <img class="logo-after" src="<?=ASSETS?>minima/img/logo-dark.png" alt="">
                 </a>
             </div>
+            <?php if(isset($_SESSION['username'])): ?>
+                Hi <?=$_SESSION['username'] ?>!
+
+            <?php endif; ?>
             <div class="s-12 l-10">
                 <div class="top-nav right">
                     <p class="nav-text"></p>
@@ -41,8 +45,12 @@
                         <li><a href="<?php ROOT?>about">About Us</a></li>
                         <li><a href="<?php ROOT?>contact">Contact</a></li>
                         <li><a href="<?php ROOT?>upload">Upload</a></li>
+                        <?php if(!isset($_SESSION['username'])): ?>
                         <li><a href="<?php ROOT?>signup">Signup</a></li>
                         <li><a href="<?php ROOT?>login">Login</a></li>
+                        <?php else: ?>
+                            <li><a href="<?php ROOT?>logout">Logout</a></li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </div>

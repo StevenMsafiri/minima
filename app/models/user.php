@@ -67,11 +67,11 @@ Class User{
         {
             $arr['user_url'] = $_SESSION['user_url'];
 
-            $query = "SELECT * FROM users WHERE user_url = :user_url limit 1 ";
+            $query = "SELECT * FROM users WHERE url_address = :user_url limit 1 ";
             $data = $DB->read($query, $arr);
             if(is_array($data)){
                 $_SESSION['username'] = $data[0]->username;
-                $_SESSION['user_id'] = $data[0]->userid;
+                $_SESSION['id'] = $data[0]->id;
                 $_SESSION['user_url'] = $data[0]->url_address;
 
                 return true;
