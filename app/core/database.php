@@ -12,52 +12,67 @@ Class Database
             die($e->getMessage());
         }
     }
-
-    public function read($query, $data=[])
+    public function read($query,$data = [])
     {
+
         $DB = $this->db_connect();
-        show($DB);
         $stmt = $DB->prepare($query);
 
-        if(count($data) == 0){
+        if(count($data) == 0)
+        {
             $stmt = $DB->query($query);
             $check = 0;
             if($stmt){
                 $check = 1;
-            }else{
-                $check = $stmt->execute($data);
             }
+        }else{
+
+            $check = $stmt->execute($data);
         }
 
-        if($check){
+        if($check)
+        {
             $data = $stmt->fetchAll(PDO::FETCH_OBJ);
-            return $data;
-        }else{
+            if(is_array($data) && count($data) > 0)
+            {
+                return $data;
+            }
+
+            return false;
+        }else
+        {
             return false;
         }
-
     }
 
-    public function write($query, $data=[])
+    public function write($query,$data = [])
     {
+
         $DB = $this->db_connect();
         $stmt = $DB->prepare($query);
 
-        if(count($data) == 0){
+        if(count($data) == 0)
+        {
             $stmt = $DB->query($query);
             $check = 0;
             if($stmt){
                 $check = 1;
-            }else{
-                $check = $stmt->execute($data);
             }
+        }else{
+
+            show($data);
+            show($stmt);
+            show($stmt->execute($data));
+            $check = $stmt->execute($data);
         }
 
-        if($check){
-            $stmt->fetchAll(PDO::FETCH_OBJ);
+        if($check)
+        {
             return true;
-        }else{
+        }else
+        {
             return false;
         }
     }
+
 }

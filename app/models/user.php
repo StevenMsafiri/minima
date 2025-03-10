@@ -2,42 +2,80 @@
 
 Class User{
 
-    function login($_POST)
+    function login($POST)
     {
         $DB = new Database();
 
         $_SESSION['errors'] = '';
-        if(isset($_POST["username"]) && $_POST["password"])
+        if(isset($POST["username"]) && $POST["password"])
         {
-            $arr['username'] = $_POST['username'];
-            $arr['password'] = $_POST['password'];
+            $arr['username'] = $POST['username'];
+            $arr['password'] = $POST['password'];
 
             $query = "SELECT * FROM users WHERE email = :email AND password= :password ";
             $data = $DB->read($query, $arr);
 
             if(is_array($data)){
                 //logged in
-                $_SESSION['username'] = $data['username'];
+                $_SESSION['username'] = $data[0]->username;
                 $_SESSION['user_id'] = $data[0]->userid;
+                $_SESSION['user_url'] = $data[0]->url_address;
+            }else
+            {
+                $_SESSION['errors'] = "Wrong username or password";
             }
+        }else
+        {
+            $_SESSION['errors'] = "Please enter username and password";
         }
 
     }
 
-    function signup($_POST)
+    function signup($POST)
     {
         $DB = new Database();
-        $arr['username'] = $_POST['username'];
-        $arr['password'] = $_POST['password'];
-        $arr['email'] = $_POST['email'];
 
-        $query = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
-        $data = $DB->read($query, $arr);
+        $_SESSION['errors'] = '';
+        if(isset($POST["username"]) && $POST["password"])
+        {
 
+            $arr['url_address'] = get_random_string_max(60);
+            $arr['username'] = $POST['username'];
+            $arr['password'] = $POST['password'];
+            $arr['email'] = $POST['email'];
+            $arr['date'] = date("Y-m-d H:i:s");
+
+            $query = "INSERT INTO users (url_address, username, password, email, date ) 
+                      VALUES (:url_address, :username, :password, :email, :date)";
+            $data = $DB->write($query, $arr);
+
+            if(is_array($data))
+            {
+                header("Location" . ROOT . "login");
+            }
+
+        }
     }
 
-    function check_login($email,$password)
+    function check_logged_in()
     {
+        $DB = new Database();
 
+        if(isset($_SESSION['user_url']))
+        {
+            $arr['user_url'] = $_SESSION['user_url'];
+
+            $query = "SELECT * FROM users WHERE user_url = :user_url limit 1 ";
+            $data = $DB->read($query, $arr);
+            if(is_array($data)){
+                $_SESSION['username'] = $data[0]->username;
+                $_SESSION['user_id'] = $data[0]->userid;
+                $_SESSION['user_url'] = $data[0]->url_address;
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }
