@@ -93,9 +93,10 @@
     </style>
     <?php $this->view("minima/header", $data) ?>
     <div class="login-page">
-        <?php check_message(); ?>
+
         <h2>Login</h2>
         <div class="form">
+            <?php check_message(); ?>
             <form class="register-form" method="POST">
                 <input type="text" name="username" placeholder="name"/>
                 <input type="password" name="password" placeholder="password"/>
@@ -104,8 +105,8 @@
                 <p class="message">Already registered? <a href="#">Sign In</a></p>
             </form>
             <form class="login-form" method="POST">
-                <input type="text" placeholder="username"/>
-                <input type="password" placeholder="password"/>
+                <input type="text" name="username" placeholder="username"/>
+                <input type="password" name="password" placeholder="password"/>
                 <button>login</button>
                 <p class="message">Not registered? <a href="#">Create an account</a></p>
             </form>

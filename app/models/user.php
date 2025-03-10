@@ -6,20 +6,22 @@ Class User{
     {
         $DB = new Database();
 
-        $_SESSION['errors'] = '';
+        $_SESSION['error'] = '';
         if(isset($POST["username"]) && $POST["password"])
         {
             $arr['username'] = $POST['username'];
             $arr['password'] = $POST['password'];
 
-            $query = "SELECT * FROM users WHERE email = :email AND password= :password ";
+            $query = "SELECT * FROM users WHERE username = :username AND password = :password ";
             $data = $DB->read($query, $arr);
 
             if(is_array($data)){
                 //logged in
                 $_SESSION['username'] = $data[0]->username;
-                $_SESSION['user_id'] = $data[0]->userid;
+                $_SESSION['id'] = $data[0]->id;
                 $_SESSION['user_url'] = $data[0]->url_address;
+
+                header("Location: " . ROOT . "home");
             }else
             {
                 $_SESSION['errors'] = "Wrong username or password";
@@ -49,9 +51,9 @@ Class User{
                       VALUES (:url_address, :username, :password, :email, :date)";
             $data = $DB->write($query, $arr);
 
-            if(is_array($data))
+            if($data)
             {
-                header("Location" . ROOT . "login");
+                header("Location: " . ROOT . "login");
             }
 
         }

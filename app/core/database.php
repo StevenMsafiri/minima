@@ -18,7 +18,7 @@ Class Database
         $DB = $this->db_connect();
         $stmt = $DB->prepare($query);
 
-        if(count($data) == 0)
+        if(empty($data))
         {
             $stmt = $DB->query($query);
             $check = 0;
@@ -26,7 +26,6 @@ Class Database
                 $check = 1;
             }
         }else{
-
             $check = $stmt->execute($data);
         }
 
@@ -59,10 +58,6 @@ Class Database
                 $check = 1;
             }
         }else{
-
-            show($data);
-            show($stmt);
-            show($stmt->execute($data));
             $check = $stmt->execute($data);
         }
 
