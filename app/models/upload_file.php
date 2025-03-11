@@ -5,7 +5,6 @@ Class Upload_file
     {
         $DB = new Database();
         $_SESSION['error'] = "";
-        show($POST);
         if(isset($POST["title"]) && isset($FILES["file"]))
         {
             //UPLOAD FILE
@@ -15,8 +14,8 @@ Class Upload_file
             if($FILES['file']['name'] != "" && $FILES['file']['error'] == 0 && in_array($FILES['file']['type'], $allowed))
             {
 
+                $folder = "uploads/";;
 
-                $folder = "uploads/";
                 if(!file_exists($folder))
                 {
                     mkdir($folder,0777,true);
@@ -41,8 +40,8 @@ Class Upload_file
                 $arr['url_address'] = get_random_string_max(60);
                 $arr['date'] = date("Y-m-d H:i:s");
 
-                $query = "INSERT INTO images (url_address, title, date, description )
-                      VALUES (:url_address, :title,:date,:description)";
+                $query = "INSERT INTO images (url_address, title,image, date, description )
+                      VALUES (:url_address, :title,:image, :date,:description)";
                 $data = $DB->write($query, $arr);
 
                 if($data)
