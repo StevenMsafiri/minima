@@ -95,8 +95,9 @@
     <div class="login-page">
 
         <h2>Login</h2>
+        <p><?php check_message(); ?> </p>
         <div class="form">
-            <?php check_message(); ?>
+
             <form class="register-form" method="POST">
                 <input type="text" name="username" placeholder="name"/>
                 <input type="password" name="password" placeholder="password"/>

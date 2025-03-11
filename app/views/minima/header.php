@@ -44,11 +44,11 @@
                         <li><a href="<?php ROOT?>home">Home</a></li>
                         <li><a href="<?php ROOT?>about">About Us</a></li>
                         <li><a href="<?php ROOT?>contact">Contact</a></li>
-                        <li><a href="<?php ROOT?>upload">Upload</a></li>
                         <?php if(!isset($_SESSION['username'])): ?>
                         <li><a href="<?php ROOT?>signup">Signup</a></li>
                         <li><a href="<?php ROOT?>login">Login</a></li>
                         <?php else: ?>
+                            <li><a href="<?php ROOT?>upload">Upload</a></li>
                             <li><a href="<?php ROOT?>logout">Logout</a></li>
                         <?php endif; ?>
                     </ul>

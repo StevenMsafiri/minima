@@ -38,7 +38,7 @@ Class User{
         $DB = new Database();
 
         $_SESSION['errors'] = '';
-        if(isset($POST["username"]) && $POST["password"])
+        if(isset($POST["username"]) && $POST["password"] && $POST["email"])
         {
 
             $arr['url_address'] = get_random_string_max(60);
@@ -56,6 +56,10 @@ Class User{
                 header("Location: " . ROOT . "login");
             }
 
+        }
+        else
+        {
+            $_SESSION['errors'] = "Please enter username and password";
         }
     }
 
@@ -79,5 +83,15 @@ Class User{
         }
 
         return false;
+    }
+
+    function logout()
+    {
+        unset( $_SESSION['username']);
+        unset( $_SESSION['user_url']);
+        unset($_SESSION['id']);
+
+        header("Location: " . ROOT . "login");
+        die();
     }
 }

@@ -94,8 +94,10 @@
 
 <?php $this->view("minima/header", $data) ?>
 <div class="login-page">
+
+    <h2>Signup</h2>
     <div class="form">
-        <?php check_message(); ?>
+        <p><?php check_message(); ?> </p>
         <form class="register-form" method="POST">
             <input type="text" name="username" placeholder="name"/>
             <input type="password" name="password" placeholder="password"/>
